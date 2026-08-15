@@ -11,7 +11,7 @@
 
 <header class="site-header">
   <div class="wrap header-inner">
-    <a href="#" class="logo">RentBridge</a>
+    <a href="#" class="logo js-brand-name">RentBridge</a>
     <nav class="nav">
       <a href="#about">About</a>
       <a href="#how-it-works">How It Works</a>
@@ -40,7 +40,7 @@
 
   <section id="about" class="section section-alt">
     <div class="wrap">
-      <span class="eyebrow">ABOUT RENTBRIDGE</span>
+      <span class="eyebrow">ABOUT <span class="js-brand-name-upper">RENTBRIDGE</span></span>
       <h2>A simpler way to lease your property.</h2>
       <p class="section-lede">
         Whether you've got a unit sitting vacant, a lease coming up for renewal, or
@@ -117,12 +117,12 @@
           Whether you've got one unit or a few, we'd love to hear from you. No pressure,
           no hard sell — just a conversation about whether this is a good fit.
         </p>
-        <a href="mailto:hassam@rentbridgehq.com" class="btn btn-primary">Email Us</a>
+        <a href="mailto:hassam@rentbridgehq.com" class="btn btn-primary js-brand-email-link">Email Us</a>
       </div>
       <div class="contact-details">
         <div class="detail">
           <span class="detail-label">Email</span>
-          <a href="mailto:hassam@rentbridgehq.com">hassam@rentbridgehq.com</a>
+          <a href="mailto:hassam@rentbridgehq.com" class="js-brand-email-link js-brand-email-text">hassam@rentbridgehq.com</a>
         </div>
       </div>
     </div>
@@ -132,7 +132,7 @@
 <footer class="site-footer">
   <div class="wrap footer-inner">
     <div>
-      <span class="logo">RentBridge</span>
+      <span class="logo js-brand-name">RentBridge</span>
       <p class="footer-tagline">Direct property leasing. Reliable rent, hands-off for you.</p>
     </div>
     <nav class="footer-nav">
@@ -142,9 +142,36 @@
     </nav>
   </div>
   <div class="wrap">
-    <p class="copyright">&copy; 2026 RentBridge. All rights reserved.</p>
+    <p class="copyright">&copy; 2026 <span class="js-brand-name">RentBridge</span>. All rights reserved.</p>
   </div>
 </footer>
 
+<script>
+(function () {
+  var BRANDS = {
+    "rentbridgehq.com": { name: "RentBridge", email: "hassam@rentbridgehq.com" },
+    "goleaseflowhq.com": { name: "LeaseFlow", email: "hassam@goleaseflowhq.com" }
+  };
+  var host = window.location.hostname.replace(/^www\./, "");
+  var brand = BRANDS[host] || BRANDS["rentbridgehq.com"]; // default for previews (localhost, github.io, etc.)
+
+  document.title = document.title.replace("RentBridge", brand.name);
+  var desc = document.querySelector('meta[name="description"]');
+  if (desc) desc.setAttribute("content", desc.getAttribute("content").replace("RentBridge", brand.name));
+
+  document.querySelectorAll(".js-brand-name").forEach(function (el) {
+    el.textContent = brand.name;
+  });
+  document.querySelectorAll(".js-brand-name-upper").forEach(function (el) {
+    el.textContent = brand.name.toUpperCase();
+  });
+  document.querySelectorAll(".js-brand-email-text").forEach(function (el) {
+    el.textContent = brand.email;
+  });
+  document.querySelectorAll(".js-brand-email-link").forEach(function (el) {
+    el.setAttribute("href", "mailto:" + brand.email);
+  });
+})();
+</script>
 </body>
 </html>
